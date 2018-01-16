@@ -10,6 +10,10 @@ Libraries
 
     options(scipen = 99)
 
+**Note:** I have used a library called `kani` which has some theme
+aesthetics for plotting. It can be installed by using
+`devtools::install_github("kanishkamisra/kani")` in your R console.
+
 Data import
 -----------
 
@@ -59,19 +63,21 @@ US Average for each year
         )
       )
 
-To produce the plot, we use the `geom_ribbon` function to show more
-apparent difference in the state vs the usa average mortality due to all
-causes
-
-    # Plot 
+To produce the plot, we use the `geom_ribbon` function to show more a
+more apparent difference in the state vs the usa average mortality due
+to all causes. The ribbon is essentially a color fill between the two
+line plots of the state mortality rates and the usa average. The color
+is determined by which rate is greater (worse in the case of mortality).
 
     usa_state_plot <- usa_vs_state %>%
       gather(state_avg, usa_avg, key = "metric", value = "mortality_rate") %>%
       separate(metric, into = c("metric", "avg")) %>%
+      mutate(metric = str_to_title(metric)) %>%
       select(-avg) %>%
       ggplot(aes(year, mortality_rate, color = metric)) +
       geom_line(size = 1) +
-      geom_ribbon(aes(ymin = mortality_rate, ymax = ribbon_value, linetype = NA, fill = ribbon_color), alpha = 0.2, show.legend = F) +
+      geom_ribbon(aes(ymin = mortality_rate, ymax = ribbon_value,
+                      linetype = NA, fill = ribbon_color), alpha = 0.2, show.legend = F) +
       facet_geo(~state_abb, grid = "us_state_grid4") +
       scale_fill_identity() +
       theme_kani() +
@@ -82,9 +88,24 @@ causes
         panel.background = element_rect(fill = "white"),
         legend.background = element_rect(fill = "white"),
         legend.key = element_rect(fill = "white"),
-        strip.background = element_rect(fill = "white")
+        strip.background = element_rect(fill = "white"),
+        strip.text = element_text(face = "bold"),
+        legend.text = element_text(size = rel(1.2)),
+        legend.title = element_text(size = rel(1.2))
+      ) +
+      labs(
+        x = "Year",
+        y = "Mortality Rate (per 100,000 people)",
+        color = "Trend"
       )
 
     ggsave("usa_state_mortality.png", usa_state_plot, height = 12, width = 15)
 
 ![USA vs State Mortality](usa_state_mortality.png)
+
+Citation
+--------
+
+Institute for Health Metrics and Evaluation (IHME). United States
+Mortality Rates by County 1980-2014. Seattle, United States: Institute
+for Health Metrics and Evaluation (IHME), 2016.
