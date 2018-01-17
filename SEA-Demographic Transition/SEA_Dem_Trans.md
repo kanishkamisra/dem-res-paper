@@ -116,7 +116,7 @@ example to show demographic transition in the country.
         x = "Year"
       )
 
-    ggsave("thailand_dt.png", thailand_dt)
+    ggsave("thailand_dt.png", thailand_dt, height = 4, width = 6)
 
 ![Demographic Transition in Thailand - Birth and Death Rates from
 1950-2015](thailand_dt.png)
@@ -148,6 +148,9 @@ countries in SEA.
           legend.key = element_rect(fill = "white"),
           strip.background = element_rect(fill = "white"),
           strip.text.x = element_text(face = "bold")
+        ) +
+        labs(
+          x = "Year"
         )
       
       return(plot)

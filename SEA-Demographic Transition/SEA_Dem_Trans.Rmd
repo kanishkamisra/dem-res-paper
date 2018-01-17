@@ -1,5 +1,5 @@
 ---
-title: "Tile map to show demographic transition in South East Asia"
+title: "Tile map to show demographic transition in South East Asia from 1950 to 2015"
 author: "Kanishka Misra"
 date: "January 17, 2018"
 output: 
@@ -89,12 +89,11 @@ thailand_dt <- demographic_transition %>%
     x = "Year"
   )
 
-ggsave("thailand_dt.png", thailand_dt)
+ggsave("thailand_dt.png", thailand_dt, height = 4, width = 6)
 ```
-
 ![Demographic Transition in Thailand - Birth and Death Rates from 1950-2015](thailand_dt.png)
-
 \newpage
+
 ## Plotting Demographic Transition in SEA
 
 We now use the ```geofacet``` package to plot birth and death rates in the South East Asia region. The ```sea_grid``` in ```grids.R``` helps us make a grid for the region which can fit any static, 2D plot as tiles that represent countries in SEA.
@@ -119,6 +118,9 @@ regional_plot <- function(region_grid) {
       legend.key = element_rect(fill = "white"),
       strip.background = element_rect(fill = "white"),
       strip.text.x = element_text(face = "bold")
+    ) +
+    labs(
+      x = "Year"
     )
   
   return(plot)
