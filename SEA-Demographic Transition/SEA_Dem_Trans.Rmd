@@ -3,9 +3,9 @@ title: "Tile map to show demographic transition in South East Asia from 1950 to 
 author: "Kanishka Misra"
 date: "January 17, 2018"
 output: 
-  md_document: default
   pdf_document:
     latex_engine: xelatex
+  md_document: default
 ---
 ```{r include = FALSE}
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
@@ -86,6 +86,7 @@ thailand_dt <- demographic_transition %>%
     strip.text.x = element_text(face = "bold")
   ) + 
   labs(
+    y = "Rates per 1000 people",
     x = "Year"
   )
 
@@ -120,6 +121,7 @@ regional_plot <- function(region_grid) {
       strip.text.x = element_text(face = "bold")
     ) +
     labs(
+      y = "Rates per 1000 people",
       x = "Year"
     )
   
