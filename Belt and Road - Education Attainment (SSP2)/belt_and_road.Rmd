@@ -31,7 +31,7 @@ options(scipen = 99)
 
 ## Data import
 
-We use 
+We use data from Wittgenstein Center...
 
 ```{r data_import}
 belt_road <- read_csv("belt_road_countries.csv")
@@ -136,18 +136,13 @@ belt_road_plot <- belt_road %>%
           legend.background = element_rect(fill = "white"),
           legend.key = element_rect(fill = "white"),
           strip.background = element_rect(fill = "white"),
-          title = element_text(family = "Roboto"),
           strip.text = element_text(face = "bold"),
-          plot.caption = element_text(size = 11),
           legend.text = element_text(size = rel(1.1)),
           legend.title = element_text(size = rel(1.1))
     ) +
     labs(
       y = "Total population by educational attainment, 000s",
-      x = "",
-      caption = "Data: Wittgenstein Centre for Demography and Global Human Capital, (2015). 
-      \nWittgenstein Centre Data Explorer Version 1.2. Available at: http://www.wittgensteincentre.org/dataexplorer\n Map designed by authors using the geofacet
-      R package by Ryan Hafen"
+      x = ""
     )
 
 ggsave("belt_road_education.png", belt_road_plot, height = 15, width = 26)
