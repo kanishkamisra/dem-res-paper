@@ -3,9 +3,9 @@ title: "Tile map to show demographic transition in South East Asia from 1950 to 
 author: "Kanishka Misra"
 date: "January 17, 2018"
 output: 
+  md_document: default
   pdf_document:
     latex_engine: xelatex
-  md_document: default
 ---
 ```{r include = FALSE}
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
@@ -93,11 +93,26 @@ thailand_dt <- demographic_transition %>%
 ggsave("thailand_dt.png", thailand_dt, height = 4, width = 6)
 ```
 ![Demographic Transition in Thailand - Birth and Death Rates from 1950-2015](thailand_dt.png)
-\newpage
 
+\newpage
+## South East Asia grid data
+
+The ```sea_grid``` in ```grids.R``` helps us make a grid to represent plots for countries in SEA. We use the ```grid_design()``` function to design the grid this function call opens a new window where the following values can be added in a comma separated format. 
+```{r sea_grid, echo = FALSE}
+knitr::kable(sea_grid)
+```
+
+## Grid Preview
+```{r sea_grid_preview}
+grid_prev <- grid_preview(sea_grid) + theme_minimal()
+ggsave("sea_grid.png", grid_prev, width = 6, height = 4)
+```
+![Countries shown as tiles in the SEA grid](sea_grid.png)
+
+\newpage
 ## Plotting Demographic Transition in SEA
 
-We now use the ```geofacet``` package to plot birth and death rates in the South East Asia region. The ```sea_grid``` in ```grids.R``` helps us make a grid for the region which can fit any static, 2D plot as tiles that represent countries in SEA.
+We now use the ```geofacet``` package to plot birth and death rates in the South East Asia region as defined by ```sea_grid```. 
 
 ```{r sea-dt}
 regional_plot <- function(region_grid) {

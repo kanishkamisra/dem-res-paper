@@ -19,7 +19,7 @@ aesthetics for plotting. It can be installed by using
 Data import
 -----------
 
-We use
+We use data from Wittgenstein Center...
 
     belt_road <- read_csv("belt_road_countries.csv")
 
@@ -427,6 +427,14 @@ The grid for belt and road is shown as follows:
 </tbody>
 </table>
 
+Grid Preview
+------------
+
+    grid_prev <- grid_preview(obor_grid) + theme_minimal()
+    ggsave("obor_grid.png", grid_prev)
+
+![Belt and road countries shown as tiles](obor_grid.png)
+
 Plotting Belt and Road countries
 --------------------------------
 
@@ -446,18 +454,13 @@ Plotting Belt and Road countries
               legend.background = element_rect(fill = "white"),
               legend.key = element_rect(fill = "white"),
               strip.background = element_rect(fill = "white"),
-              title = element_text(family = "Roboto"),
               strip.text = element_text(face = "bold"),
-              plot.caption = element_text(size = 11),
               legend.text = element_text(size = rel(1.1)),
               legend.title = element_text(size = rel(1.1))
         ) +
         labs(
           y = "Total population by educational attainment, 000s",
-          x = "",
-          caption = "Data: Wittgenstein Centre for Demography and Global Human Capital, (2015). 
-          \nWittgenstein Centre Data Explorer Version 1.2. Available at: http://www.wittgensteincentre.org/dataexplorer\n Map designed by authors using the geofacet
-          R package by Ryan Hafen"
+          x = ""
         )
 
     ggsave("belt_road_education.png", belt_road_plot, height = 15, width = 26)

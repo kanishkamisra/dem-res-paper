@@ -74,6 +74,67 @@ usa_vs_state <- mortality %>%
 
 To produce the plot, we use the ```geom_ribbon``` function to show more a more apparent difference in the state vs the usa average mortality due to all causes. The ribbon is essentially a color fill between the two line plots of the state mortality rates and the usa average. The color is determined by which rate is greater (worse in the case of mortality).
 
+# For one state
+
+We can take look at the plot for Minnesota
+
+```{r minnesota_mortality}
+minnesota <- usa_vs_state %>%
+  filter(state == "Minnesota") %>%
+  gather(state_avg, usa_avg, key = "metric", value = "mortality_rate") %>%
+  separate(metric, into = c("metric", "avg")) %>%
+  mutate(metric = str_to_title(metric)) %>%
+  select(-avg) %>%
+  ggplot(aes(year, mortality_rate, color = metric)) +
+  geom_line(size = 1) +
+  geom_ribbon(aes(ymin = mortality_rate, ymax = ribbon_value,
+                  linetype = NA, fill = ribbon_color), alpha = 0.2, show.legend = F) +
+  scale_fill_identity() +
+  theme_kani() +
+  theme(
+    legend.position = "top",
+    plot.background = element_rect(fill = "white"),
+    panel.background = element_rect(fill = "white"),
+    legend.background = element_rect(fill = "white"),
+    legend.key = element_rect(fill = "white"),
+    strip.background = element_rect(fill = "white"),
+    strip.text = element_text(face = "bold")
+  ) +
+  labs(
+    x = "Year",
+    y = "Mortality Rate (per 100,000 people)",
+    color = "Trend"
+  )
+
+ggsave("minnesota_mortality.png", minnesota)
+```
+![USA vs Minnesota mortality rates due to all causes](minnesota_mortality.png)
+
+## USA Grid
+
+We use the ```grid_design()``` function to design the grid for United States, this function call opens a new window where the following values can be added in a comma separated format.
+
+```{r table, echo = FALSE}
+knitr::kable(us_state_grid4)
+```
+
+
+## Grid Preview
+
+We use the ```grid_preview("us_state_grid4")``` to preview the grid as shown below
+
+```{r usa_grid_preview}
+grid_prev <- grid_preview(us_state_grid4) + theme_minimal()
+
+ggsave("usa_grid.png", grid_prev, height = 7, width = 9)
+grid_prev
+```
+
+\newpage
+## Plotting mortality rates in USA as a grid map
+
+We now take the grid and code the plots similar to the one shown for minnesota, but this time for all states.
+
 ```{r plot}
 usa_state_plot <- usa_vs_state %>%
   gather(state_avg, usa_avg, key = "metric", value = "mortality_rate") %>%
@@ -110,8 +171,12 @@ ggsave("usa_state_mortality.png", usa_state_plot, height = 12, width = 15)
 ```
 ![USA vs State Mortality](usa_state_mortality.png)
 
-## Citation
+\newpage
+## References
 
-Institute for Health Metrics and Evaluation (IHME). United States Mortality Rates by County 1980-2014. Seattle, United States: Institute for Health Metrics and Evaluation (IHME), 2016.
+Institute for Health Metrics and Evaluation (IHME). United States Mortality Rates by County 1980-2014. Seattle,   United States: Institute for Health Metrics and Evaluation (IHME), 2016.
 
+H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.
 
+Ryan Hafen (2017). geofacet: 'ggplot2' Faceting Utilities for Geographical Data. R package version
+  0.1.5. https://CRAN.R-project.org/package=geofacet

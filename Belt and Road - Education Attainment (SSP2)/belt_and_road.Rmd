@@ -117,6 +117,16 @@ obor_grid <- data.frame(
 knitr::kable(obor_grid)
 ```
 
+## Grid Preview
+
+```{r obor_grid_prev}
+grid_prev <- grid_preview(obor_grid) + theme_minimal()
+ggsave("obor_grid.png", grid_prev)
+```
+
+![Belt and road countries shown as tiles](obor_grid.png)
+
+\newpage
 ## Plotting Belt and Road countries
 
 ```{r}

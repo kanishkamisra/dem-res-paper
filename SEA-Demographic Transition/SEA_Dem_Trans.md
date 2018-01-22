@@ -40,19 +40,20 @@ We use data from <blank> that contains aggregated birth and death rates
     demographic_transition
 
     ## # A tibble: 3,133 x 5
-    ##    Country                             `Country … year     birth_… death_…
-    ##    <chr>                                    <int> <chr>      <dbl>   <dbl>
-    ##  1 WORLD                                      900 1950-19…    36.9    19.1
-    ##  2 More developed regions                     901 1950-19…    22.3    10.6
-    ##  3 Less developed regions                     902 1950-19…    43.6    23.0
-    ##  4 Least developed countries                  941 1950-19…    48.3    28.1
-    ##  5 Less developed regions, excluding …        934 1950-19…    43.0    22.4
-    ##  6 Less developed regions, excluding …        948 1950-19…    44.4    23.4
-    ##  7 High-income countries                     1503 1950-19…    22.5    10.6
-    ##  8 Middle-income countries                   1517 1950-19…    41.6    21.6
-    ##  9 Upper-middle-income countries             1502 1950-19…    40.1    19.4
-    ## 10 Lower-middle-income countries             1501 1950-19…    43.4    24.3
-    ## # ... with 3,123 more rows
+    ##                                                        Country
+    ##                                                          <chr>
+    ##  1                                                       WORLD
+    ##  2                                      More developed regions
+    ##  3                                      Less developed regions
+    ##  4                                   Least developed countries
+    ##  5 Less developed regions, excluding least developed countries
+    ##  6                     Less developed regions, excluding China
+    ##  7                                       High-income countries
+    ##  8                                     Middle-income countries
+    ##  9                               Upper-middle-income countries
+    ## 10                               Lower-middle-income countries
+    ## # ... with 3,123 more rows, and 4 more variables: `Country code` <int>,
+    ## #   year <chr>, birth_rate <dbl>, death_rate <dbl>
 
 Wrangling
 ---------
@@ -74,19 +75,20 @@ it easy to add labels to axis). For example, 1952.5 becomes 1953 for
     demographic_transition
 
     ## # A tibble: 3,133 x 5
-    ##    Country                               `Country c…  year birth_… death_…
-    ##    <chr>                                       <int> <dbl>   <dbl>   <dbl>
-    ##  1 WORLD                                         900  1953    36.9    19.1
-    ##  2 More developed regions                        901  1953    22.3    10.6
-    ##  3 Less developed regions                        902  1953    43.6    23.0
-    ##  4 Least developed countries                     941  1953    48.3    28.1
-    ##  5 Less developed regions, excluding le…         934  1953    43.0    22.4
-    ##  6 Less developed regions, excluding Ch…         948  1953    44.4    23.4
-    ##  7 High-income countries                        1503  1953    22.5    10.6
-    ##  8 Middle-income countries                      1517  1953    41.6    21.6
-    ##  9 Upper-middle-income countries                1502  1953    40.1    19.4
-    ## 10 Lower-middle-income countries                1501  1953    43.4    24.3
-    ## # ... with 3,123 more rows
+    ##                                                        Country
+    ##                                                          <chr>
+    ##  1                                                       WORLD
+    ##  2                                      More developed regions
+    ##  3                                      Less developed regions
+    ##  4                                   Least developed countries
+    ##  5 Less developed regions, excluding least developed countries
+    ##  6                     Less developed regions, excluding China
+    ##  7                                       High-income countries
+    ##  8                                     Middle-income countries
+    ##  9                               Upper-middle-income countries
+    ## 10                               Lower-middle-income countries
+    ## # ... with 3,123 more rows, and 4 more variables: `Country code` <int>,
+    ## #   year <dbl>, birth_rate <dbl>, death_rate <dbl>
 
 Plotting demographic transition for one country
 -----------------------------------------------
@@ -113,6 +115,7 @@ example to show demographic transition in the country.
         strip.text.x = element_text(face = "bold")
       ) + 
       labs(
+        y = "Rates per 1000 people",
         x = "Year"
       )
 
@@ -121,13 +124,106 @@ example to show demographic transition in the country.
 ![Demographic Transition in Thailand - Birth and Death Rates from
 1950-2015](thailand_dt.png)
 
+South East Asia grid data
+-------------------------
+
+The `sea_grid` in `grids.R` helps us make a grid to represent plots for
+countries in SEA. We use the `grid_design()` function to design the grid
+this function call opens a new window where the following values can be
+added in a comma separated format.
+
+<table>
+<thead>
+<tr class="header">
+<th align="left">name</th>
+<th align="left">code</th>
+<th align="right">row</th>
+<th align="right">col</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Lao People's Democratic Republic</td>
+<td align="left">LAO</td>
+<td align="right">1</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Myanmar</td>
+<td align="left">MMR</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Viet Nam</td>
+<td align="left">VNM</td>
+<td align="right">1</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">Thailand</td>
+<td align="left">THA</td>
+<td align="right">2</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Cambodia</td>
+<td align="left">KHM</td>
+<td align="right">2</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Philippines</td>
+<td align="left">PHL</td>
+<td align="right">2</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Brunei Darussalam</td>
+<td align="left">BRN</td>
+<td align="right">3</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">Malaysia</td>
+<td align="left">MYS</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Singapore</td>
+<td align="left">SGP</td>
+<td align="right">4</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Timor-Leste</td>
+<td align="left">TLS</td>
+<td align="right">5</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Indonesia</td>
+<td align="left">IDN</td>
+<td align="right">5</td>
+<td align="right">3</td>
+</tr>
+</tbody>
+</table>
+
+Grid Preview
+------------
+
+    grid_prev <- grid_preview(sea_grid) + theme_minimal()
+    ggsave("sea_grid.png", grid_prev, width = 6, height = 4)
+
+![Countries shown as tiles in the SEA grid](sea_grid.png)
+
 Plotting Demographic Transition in SEA
 --------------------------------------
 
 We now use the `geofacet` package to plot birth and death rates in the
-South East Asia region. The `sea_grid` in `grids.R` helps us make a grid
-for the region which can fit any static, 2D plot as tiles that represent
-countries in SEA.
+South East Asia region as defined by `sea_grid`.
 
     regional_plot <- function(region_grid) {
       plot <- demographic_transition %>%
@@ -150,6 +246,7 @@ countries in SEA.
           strip.text.x = element_text(face = "bold")
         ) +
         labs(
+          y = "Rates per 1000 people",
           x = "Year"
         )
       
